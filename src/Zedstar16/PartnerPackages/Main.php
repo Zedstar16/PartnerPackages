@@ -79,30 +79,32 @@ class Main extends PluginBase implements Listener
                     $sender->sendMessage($msg);
                 } else {
                     $p = $this->getServer()->getPlayer($args[0]);
-                    if ($p !== null) {
-                        $names = [];
-                        foreach ($list as $raw) {
-                            $d = explode(":", $raw);
-                            $names[$d[1]] = [$d[0], $d[2]];
-                        }
-                        if (array_key_exists($args[1], $names)) {
-                            $d = $names[$args[1]];
-                            $item = ItemFactory::get((int)$d[1]);
-                            $item->setCustomName("§r§l§b" . $d[0]);
-                            if ($args[1] === "debuff") {
-                                $item->setDamage(1);
+                    if(isset($args[1])) {
+                        if ($p !== null) {
+                            $names = [];
+                            foreach ($list as $raw) {
+                                $d = explode(":", $raw);
+                                $names[$d[1]] = [$d[0], $d[2]];
                             }
-                            $item->addEnchantment(new EnchantmentInstance(new Enchantment(255, "", Enchantment::RARITY_COMMON, Enchantment::SLOT_ALL, Enchantment::SLOT_NONE, 1)));
-                            $nbt = $item->getNamedTag();
-                            $nbt->setString("ability", $args[1]);
-                            $item->setCompoundTag($nbt);
-                            $p->getInventory()->addItem($item);
-                            $p->sendMessage("§aYou Have Been Given a Partner Item!");
-                            if ($sender->getName() !== $p->getName()) {
-                                $sender->sendMessage("§aYou have Given§f {$p->getName()}}§a a Partner Item");
-                            }
-                        } else $sender->sendMessage("§cPartner package does not exist, use /pi list to view all current partner packages");
-                    } else $sender->sendMessage("§cTarget player is not online");
+                            if (array_key_exists($args[1], $names)) {
+                                $d = $names[$args[1]];
+                                $item = ItemFactory::get((int)$d[1]);
+                                $item->setCustomName("§r§l§b" . $d[0]);
+                                if ($args[1] === "debuff") {
+                                    $item->setDamage(1);
+                                }
+                                $item->addEnchantment(new EnchantmentInstance(new Enchantment(255, "", Enchantment::RARITY_COMMON, Enchantment::SLOT_ALL, Enchantment::SLOT_NONE, 1)));
+                                $nbt = $item->getNamedTag();
+                                $nbt->setString("ability", $args[1]);
+                                $item->setCompoundTag($nbt);
+                                $p->getInventory()->addItem($item);
+                                $p->sendMessage("§aYou Have Been Given a Partner Item!");
+                                if ($sender->getName() !== $p->getName()) {
+                                    $sender->sendMessage("§aYou have Given§f {$p->getName()}}§a a Partner Item");
+                                }
+                            } else $sender->sendMessage("§cPartner package does not exist, use /pi list to view all current partner packages");
+                        } else $sender->sendMessage("§cTarget player is not online");
+                    }else $sender->sendMessage("§cSpecify a package, to view all packages run §e/pi list");
                 }
             } else $sender->sendMessage("§9=-= §aPartner Package Help §9=-=\n§9- §b/pi (username) (package)§9 - Gives specified package to player\n§9- §b/pi list §9- Lists all partner packages");
         }
