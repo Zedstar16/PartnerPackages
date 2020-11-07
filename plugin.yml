@@ -1,0 +1,19 @@
+name: PartnerPackages
+main: Zedstar16\PartnerPackages\Main
+version: 1.0.0
+api: 3.15.0
+load: POSTWORLD
+author: Zedstar16
+description: Zed
+website: https://github.com/Zedstar16/
+
+commands:
+ pi:
+  description: "Partner Package management command"
+  usage: "/pi"
+  permission: pi
+
+permissions:
+ pi:
+  default: op
+  description: "perm node"
