@@ -134,9 +134,7 @@ class Main extends PluginBase implements Listener
         }
         return true;
     }
-
-
-
+    
     public function ability(Player $p, $tag)
     {
         $n = $p->getName();
@@ -322,8 +320,7 @@ class Main extends PluginBase implements Listener
             }
         }
     }
-
-
+    
     public function onHit(EntityDamageByEntityEvent $event)
     {
         $p = $event->getEntity();
@@ -409,8 +406,7 @@ class Main extends PluginBase implements Listener
             }
         }
     }
-
-
+    
     public function onDisable(): void
     {
         $this->hits = [];
